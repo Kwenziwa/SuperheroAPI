@@ -1,5 +1,6 @@
 package com.example.superheroapi
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -10,14 +11,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.superheroapi.adapter.SuperheroAdatapter
+import com.example.superheroapi.api.RetrofitInstance
 import com.example.superheroapi.repository.Repository
 import com.example.superheroapi.ui.main.SuperHeroViewModel
 import com.example.superheroapi.ui.main.SuperHeroViewModelFactory
-import com.example.superheroapi.views.FavirateFragment
-import com.example.superheroapi.views.SettingsFragment
+import com.example.superheroapi.views.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.paulrybitskyi.persistentsearchview.utils.VoiceRecognitionDelegate
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.bottom_navigation.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -34,34 +36,35 @@ class MainActivity : AppCompatActivity() {
         }
         setupRecyclerview()
         searchHero()
+        bottomNavigationView.selectedItemId = R.id.home
 
+        btmNav()
+
+    }
+
+    private fun btmNav() {
         val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.favorites -> {
-                    val fragment = FavirateFragment()
-                    supportFragmentManager.beginTransaction().replace(R.id.container, fragment, fragment.javaClass.getSimpleName())
-                        .commit()
+
+                    startActivity(Intent(applicationContext, FavoritesActivity::class.java))
+                    overridePendingTransition(0,0)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.settings -> {
-                    val fragment = SettingsFragment()
-                    supportFragmentManager.beginTransaction().replace(R.id.container, fragment, fragment.javaClass.getSimpleName())
-                        .commit()
-                    return@OnNavigationItemSelectedListener true
+                    startActivity(Intent(applicationContext, SettingsActivity::class.java))
+                    overridePendingTransition(0,0)
                 }
                 R.id.home -> {
-                    val fragment = SettingsFragment()
-                    supportFragmentManager.beginTransaction().replace(R.id.container, fragment, fragment.javaClass.getSimpleName())
-                        .commit()
+
                     return@OnNavigationItemSelectedListener true
                 }
             }
             false
         }
+
+
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-
-
-
     }
 
     private fun searchHero() {
@@ -78,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
             setOnSearchConfirmedListener { searchView, query ->
 
-                progressBar_.visibility = View.VISIBLE
+                home_icon.visibility = View.VISIBLE
 
                 if(query.toString() != null ){
                     getHeroList(query.toString())
@@ -91,19 +94,33 @@ class MainActivity : AppCompatActivity() {
 
     private fun getHeroList(name: String) {
 
-        val repository = Repository()
-        val viewModelFactory =SuperHeroViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(SuperHeroViewModel::class.java)
-        viewModel.getSuperhero(name)
-        viewModel.mySuperhero.observe(this, Observer { response ->
-            if(response.isSuccessful){
-                response.body()?.let { myAdapter.setData(it.results,this) }
+        if(RetrofitInstance.isNetworkAvailable(this)){
 
-                progressBar_.visibility =  View.GONE
-            }else {
-                Toast.makeText(this, response.code(), Toast.LENGTH_SHORT).show()
-            }
-        })
+            val repository = Repository()
+            val viewModelFactory =SuperHeroViewModelFactory(repository)
+            viewModel = ViewModelProvider(this, viewModelFactory).get(SuperHeroViewModel::class.java)
+            viewModel.getSuperhero(name)
+            viewModel.mySuperhero.observe(this, Observer { response ->
+                if(response.isSuccessful){
+                    response.body()?.let { myAdapter.setData(it.results,this) }
+
+                    home_icon.visibility =  View.GONE
+
+
+
+                }else {
+
+                    home_icon.setAnimation(R.raw.empty_box)
+
+                }
+            })
+
+        }
+        else{
+
+            home_icon.setAnimation(R.raw.network_erro_hero)
+            home_text.text = "Your internet is not  good enough if you're reading this :)\n"
+        }
 
     }
 
@@ -130,30 +147,6 @@ class MainActivity : AppCompatActivity() {
     private fun onLeftButtonClicked() {
         onBackPressed()
     }
-
-        val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.favorites -> {
-                    val fragment = FavirateFragment()
-                    supportFragmentManager.beginTransaction().replace(R.id.container, fragment, fragment.javaClass.getSimpleName())
-                        .commit()
-                    return@OnNavigationItemSelectedListener true
-                }
-                R.id.settings -> {
-                    val fragment = SettingsFragment()
-                    supportFragmentManager.beginTransaction().replace(R.id.container, fragment, fragment.javaClass.getSimpleName())
-                        .commit()
-                    return@OnNavigationItemSelectedListener true
-                }
-                R.id.home -> {
-                    val fragment = SettingsFragment()
-                    supportFragmentManager.beginTransaction().replace(R.id.container, fragment, fragment.javaClass.getSimpleName())
-                        .commit()
-                    return@OnNavigationItemSelectedListener true
-                }
-            }
-            false
-        }
 
 
 
