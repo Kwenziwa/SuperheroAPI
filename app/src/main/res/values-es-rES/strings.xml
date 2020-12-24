@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Superhero</string>
+    <string name="lizwi_khanyile">Lizwi Khanyile</string>
+    <string name="my_desc">Haciendo el punto dulce entre la estética y la elegancia para dar vida a tu marca. Mi opinión no pertenece a nadie más que a mí.</string>
+    <string name="about_me">Sobre mí</string>
+    <string name="job_success">Éxito laboral</string>
+    <string name="contact">Contacto</string>
+    <string name="skills">Habilidades</string>
+    <string name="ratings">Clasificaciones de estrellas</string>
+    <string name="network_message">Tu internet no es lo suficientemente bueno si estás leyendo esto</string>
+    <string name="empty_message">personaje con nombre de pila no encontrado</string>
+    <string name="search_hero">Busca a tu superhéroe aquí.</string>
+    <string name="profile">Perfil</string>
+    <string name="appearance">Apariencia</string>
+    <string name="work_amp_connections"><![CDATA[Trabajo y conexiones]]></string>
+    <string name="occupation">Ocupación</string>
+    <string name="base">Base</string>
+    <string name="group_affiliation">Afiliación grupal</string>
+    <string name="relatives">Parientes</string>
+    <string name="intelligence">Inteligencia</string>
+    <string name="strength">Fuerza</string>
+    <string name="speed">Velocidad</string>
+    <string name="power">Poder</string>
+    <string name="home">Casa</string>
+    <string name="favorites">Favoritas</string>
+    <string name="settings">Configuraciones</string>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="job_success">Werksukses</string>
+    <string name="my_desc">Om op die lieflike plek tussen estetika en elegansie te doen om u handelsmerk lewe te gee. My mening behoort aan niemand anders as myself nie.</string>
+    <string name="about_me">Oor my</string>
+    <string name="contact">Kontak</string>
+    <string name="skills">Vaardighede</string>
+    <string name="ratings">Stergraderings</string>
+    <string name="network_message">U internet is nie goed genoeg as u dit lees nie</string>
+    <string name="empty_message">karakter met voornaam nie gevind nie</string>
+    <string name="search_hero">Soek u superheld hier.</string>
+    <string name="profile">Profiel</string>
+    <string name="appearance">Voorkoms</string>
+    <string name="work_amp_connections"><![CDATA[Werk en verbindings]]></string>
+    <string name="occupation">Beroep</string>
+    <string name="base">Basis</string>
+    <string name="group_affiliation">Groepsverbintenis</string>
+    <string name="relatives">Familielede</string>
+    <string name="intelligence">Intelligensie</string>
+    <string name="strength">Krag</string>
+    <string name="speed">Spoed</string>
+    <string name="power">Krag</string>
+    <string name="home">Tuis</string>
+    <string name="favorites">Gunstelinge</string>
+    <string name="settings">Instellings</string>
+
+</resources>
